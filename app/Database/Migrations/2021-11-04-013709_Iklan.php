@@ -12,20 +12,20 @@ class Iklan extends Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => '5',
-                'auto_increament' => true
+                'auto_increment' => true
             ],
-            'judul' => [
+            'judul_iklan' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'deskripsi' => [
+            'deskripsi_iklan' => [
                 'type' => 'TEXT',
             ],
-            'slug' => [
+            'slug_iklan' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'harga' => [
+            'harga_iklan' => [
                 'type' => 'INT',
                 'constraint' => '15',
             ],
@@ -35,6 +35,8 @@ class Iklan extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        // $this->forge->addForeignKey('id_subkategori', 'subkategori', 'id');
+
         $this->forge->createTable('iklan');
     }
 

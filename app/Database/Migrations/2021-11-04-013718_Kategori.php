@@ -12,17 +12,17 @@ class Kategori extends Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => '5',
-                'auto_increament' => true
+                'auto_increment' => true
             ],
-            'judul' => [
+            'judul_kategori' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'gambar' => [
+            'gambar_kategori' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'slug' => [
+            'slug_kategori' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],

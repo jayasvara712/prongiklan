@@ -12,12 +12,13 @@ class Subkategori extends Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => '5',
-                'auto_increament' => true
+                'auto_increment' => true
             ],
             'judul' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
+
             'gambar' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
@@ -27,11 +28,13 @@ class Subkategori extends Migration
                 'constraint' => '100',
             ],
             'id_kategori' => [
-                'type' => 'VARCHAR',
+                'type' => 'INT',
                 'constraint' => '100',
+
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('id_kategori', 'kategori', 'id', 'SETNULL', 'CASCADE');
         $this->forge->createTable('subkategori');
     }
 
