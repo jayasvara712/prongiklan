@@ -13,7 +13,7 @@ class Halaman extends ResourceController
      */
     public function index()
     {
-        return view('home');
+        return view('layout/client');
     }
 
     /**

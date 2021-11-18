@@ -13,7 +13,9 @@ class User extends ResourceController
      */
     public function index()
     {
-        //
+    }
+    public function login()
+    {
     }
 
     /**

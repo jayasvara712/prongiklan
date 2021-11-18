@@ -6,37 +6,22 @@ use CodeIgniter\Model;
 
 class IklanModel extends Model
 {
-    protected $DBGroup              = 'default';
+
     protected $table                = 'iklan';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
-    protected $insertID             = 0;
-    protected $returnType           = 'array';
-    protected $useSoftDeletes       = false;
-    protected $protectFields        = true;
+    protected $returnType           = 'object';
     protected $allowedFields        = ['judul', 'deskripsi', 'harga', 'slug', 'id_subkategori'];
 
-    // Dates
-    protected $useTimestamps        = false;
-    protected $dateFormat           = 'datetime';
-    protected $createdField         = 'created_at';
-    protected $updatedField         = 'updated_at';
-    protected $deletedField         = 'deleted_at';
+    //join iklan kategori gambar    
+    function getAll()
+    {
+        $builder = $this->db->table('iklan');
 
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
+        $builder
+            ->join('subkategori', 'subkategori.id = iklan.id_subkategori', 'right');
 
-    // Callbacks
-    protected $allowCallbacks       = true;
-    protected $beforeInsert         = [];
-    protected $afterInsert          = [];
-    protected $beforeUpdate         = [];
-    protected $afterUpdate          = [];
-    protected $beforeFind           = [];
-    protected $afterFind            = [];
-    protected $beforeDelete         = [];
-    protected $afterDelete          = [];
+        dd($builder->get()->row());
+        // return $builder->get()->getResult();
+    }
 }

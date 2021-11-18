@@ -31,20 +31,29 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Halaman::index');
-$routes->get('/', 'Halaman::kategori');
-$routes->get('/', 'Halaman::subkategori');
-$routes->get('/', 'Halaman::iklan');
-$routes->get('/', 'Halaman::iklandetail');
-$routes->get('/', 'Halaman::login');
-$routes->get('/', 'Halaman::register');
+// $routes->get('/', 'Halaman::index');
+// $routes->get('/', 'Halaman::kategori');
+// $routes->get('/', 'Halaman::subkategori');
+// $routes->get('/', 'Halaman::iklan');
+// $routes->get('/', 'Halaman::iklandetail');
+// $routes->get('/', 'Halaman::login');
+// $routes->get('/', 'Halaman::register');
 
-$routes->get('/admin', 'User::login');
-$routes->get('/admin/user', 'User::index');
-$routes->get('/admin/dashboard', 'User::dashboard');
-$routes->get('/admin/kategori', 'Kategori::index');
-$routes->get('/admin/subkategori', 'Subkategori::index');
-$routes->get('/admin/iklan', 'Iklan::index');
+
+$routes->presenter('kategori');
+$routes->presenter('subkategori');
+$routes->presenter('iklan');
+// $routes->get('/', 'Halaman');
+// $routes->get('/dashboard', 'Dashboard');
+// $routes->get('/dashboard/kategori', 'Kategori');
+// $routes->get('/kategori/add', 'Kategori::new');
+// $routes->post('/kategori/create', 'Kategori::create');
+// $routes->get('/admin', 'User::login');
+// $routes->get('/admin/dashboard', 'User::dashboard');
+// $routes->get('/admin/user', 'User::index');
+// $routes->get('/admin/kategori', 'Kategori::index');
+// $routes->get('/admin/subkategori', 'Subkategori::index');
+// $routes->get('/admin/iklan', 'Iklan::index');
 
 
 /*

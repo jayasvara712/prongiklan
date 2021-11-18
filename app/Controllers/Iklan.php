@@ -2,10 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\IklanModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Iklan extends ResourceController
 {
+
+
+    function __construct()
+    {
+        $this->iklanModel = new IklanModel();
+    }
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -13,7 +20,8 @@ class Iklan extends ResourceController
      */
     public function index()
     {
-        //
+        $data['iklan'] = $this->iklanModel->getAll();
+        echo view('dashboard/iklan', $data);
     }
 
     /**

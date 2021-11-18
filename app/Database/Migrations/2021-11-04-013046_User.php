@@ -12,7 +12,7 @@ class User extends Migration
             'id' => [
                 'type' => 'INT',
                 'constraint' => '5',
-                'auto_increament' => true
+                'auto_increment' => true
             ],
             'nama' => [
                 'type' => 'VARCHAR',
