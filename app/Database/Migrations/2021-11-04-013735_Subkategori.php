@@ -8,10 +8,12 @@ class Subkategori extends Migration
 {
     public function up()
     {
+        $this->db->disableForeignKeyChecks();
         $this->forge->addField([
-            'id' => [
+            'id_subkategori' => [
                 'type' => 'INT',
                 'constraint' => '5',
+                'unsigned' => true,
                 'auto_increment' => true
             ],
             'judul' => [
@@ -30,12 +32,14 @@ class Subkategori extends Migration
             'id_kategori' => [
                 'type' => 'INT',
                 'constraint' => '100',
-
+                'unsigned'   => true,
             ],
         ]);
-        $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_kategori', 'kategori', 'id', 'SETNULL', 'CASCADE');
+
+        $this->forge->addKey('id_subkategori', true);
+        $this->forge->addForeignKey('id_kategori', 'kategori', 'id_kategori', 'CASCADE', 'CASCADE');
         $this->forge->createTable('subkategori');
+        $this->db->enableForeignKeyChecks();
     }
 
     public function down()

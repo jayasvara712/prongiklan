@@ -12,7 +12,6 @@
             <form action="<?= site_url('kategori/update/' . $kategori->id_kategori) ?>" method="post" autocomplete="off" enctype="multipart/form-data">
                 <?= csrf_field() ?>
                 <input type="hidden" name="gambar_lama" value="<?= $kategori->gambar ?>">
-                <input type="hidden" name="id" value="<?= $kategori->id_kategori ?>">
                 <div class="form-group">
                     <label>Judul Kategori</label>
                     <input type="text" name="judul" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : '' ?>" id="title" value="<?= $kategori->judul ?>" onkeyup="slugify()">

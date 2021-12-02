@@ -1,8 +1,40 @@
-/**
+/* *
  *
  * You can write your CSS code here, DO NOT touch the default JavaScript file
  * because it will make it harder for you to update.
  * 
  */
-
+.dashboard__input__gambar{
+    display: none;
+}
+.dashboard__label__gambar{
+   cursor: pointer;
+}
 /*# sourceMappingURL=custom.css.map */
+.delete__image__iklan::after{
+    width: 25px;
+    height: 25px ;
+    top: 0;
+    right: 0;
+    background: black;
+    position: absolute;
+    content: "x";
+    text-align: center;
+    border-radius: 99px;
+    color: #ffffff;
+}
+.invalid{
+    margin: 0;
+    width: 100%;
+    color: #dc3545;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

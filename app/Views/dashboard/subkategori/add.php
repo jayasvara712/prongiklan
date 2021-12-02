@@ -2,50 +2,46 @@
 <?= $this->section("content") ?>
 <section class="section">
     <div class="section-header">
-        <h1>Edit Subkategori</h1>
+        <h1>Buat Subkategori</h1>
         <div><a href="<?= site_url("subkategori") ?>" class="btn btn-primary">Back</a></div>
 
     </div>
 
     <div class="section-body">
         <div class="card-body">
-
-            <form action="<?= site_url('subkategori/update/' . $subkategori->id_subkategori) ?>" method="post" autocomplete="off" enctype="multipart/form-data">
+            <form action="<?= site_url('subkategori') ?>" method="post" autocomplete="off" enctype="multipart/form-data">
                 <?= csrf_field() ?>
-                <input type="hidden" name="id" value="<?= $subkategori->id_subkategori ?>">
-                <input type="hidden" name="gambar_lama" value="<?= $subkategori->gambar ?>">
-                <div class="form-group">
+                <div class=" form-group">
                     <label>Judul Kategori</label>
-                    <input type="text" name="judul" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : '' ?>" id="title" value="<?= $subkategori->judul ?>" onkeyup="slugify()">
+                    <input type="text" name="judul" id="title" autofocus value="<?= old('judul') ?>" onkeyup="slugify()" class="form-control <?= ($validation->hasError('judul')) ? "is-invalid" : '' ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('judul') ?>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class=" form-group">
                     <label>Slug Kategori</label>
-                    <input type="text" name="slug" class="form-control" id="slug" value="<?= $subkategori->slug ?>" readonly>
+                    <input type="text" name="slug" class="form-control" id="slug" value="<?= old('slug') ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label>Kategori</label>
                     <select class="form-control" name="id_kategori">
                         <?php foreach ($kategori as $key => $value) : ?>
-                            <option value="<?= $value->id_kategori ?>" <?= ($value->id_kategori == $subkategori->id_kategori) ? 'selected' : '' ?>><?= $value->judul ?></option>
+                            <option value="<?= $value->id_kategori ?>"><?= $value->judul ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label>Gambar</label>
                     <div class="col-4">
-                        <img src="/uploads/kategori/<?= $subkategori->gambar ?>" alt="" srcset="" class="image-thumbnail img-preview" width="150px">
+                        <img src="/uploads/kategori/no-image.png" alt="" srcset="" class="image-thumbnail img-preview" width="150px">
                     </div>
                     <div class="col-8">
                         <input type="file" id="gambar" name="gambar" class="form-control <?= ($validation->hasError('gambar')) ? 'is-invalid' : '' ?>" onchange="imagePreview()">
-                        <div class=" invalid-feedback">
+                        <div class="invalid-feedback">
                             <?= $validation->getError('gambar') ?>
                         </div>
-                        <label for="gambar" class="custom-file-label gambar-label"><?= $subkategori->gambar ?></label>
+                        <label for="gambar" class="custom-file-label gambar-label">Tambah Gambar</label>
                     </div>
-
                 </div>
 
                 <div>

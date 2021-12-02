@@ -11,8 +11,8 @@ class Subkategori extends ResourcePresenter
     // protected $Helper = ['custom'];
     function __construct()
     {
-        $this->kategori = new KategoriModel();
-        $this->subkategori = new SubkategoriModel();
+        $this->kategoriModel = new KategoriModel();
+        $this->subkategoriModel = new SubkategoriModel();
     }
 
     /**
@@ -23,8 +23,7 @@ class Subkategori extends ResourcePresenter
     public function index()
     {
 
-        $data['subkategori'] = $this->subkategori->getAll();
-        // $data['subkategori'] = $this->subkategori->findAll();
+        $data['subkategori'] = $this->subkategoriModel->getAll();
 
         echo view('dashboard/subkategori', $data);
     }
@@ -46,9 +45,11 @@ class Subkategori extends ResourcePresenter
      */
     public function new()
     {
-        $data['kategori'] = $this->kategori->findAll();
+
+        $data['kategori'] = $this->kategoriModel->findAll();
         $data['validation'] = \Config\Services::validation();
-        echo view('dashboard/v_add', $data);
+
+        echo view('dashboard/subkategori/add', $data);
     }
 
     /**
@@ -60,9 +61,9 @@ class Subkategori extends ResourcePresenter
     {
         $validation = $this->validate([
             'gambar' => [
-                // 'uploaded[gambar]',
+                'mime_in[gambar,image/png,image/jpg,image/jpeg]',
                 'errors' => [
-                    // 'uploaded' => 'Masukan Gambar!'
+                    'mime_in' => 'Extension tidak sesuai!'
                 ]
             ],
             'judul' => [
@@ -86,7 +87,7 @@ class Subkategori extends ResourcePresenter
                 $imageFile->move('uploads/subkategori');
                 $nameFile = $imageFile->getName();
             } else {
-                $nameFile = 'default.png';
+                $nameFile = 'no-image.png';
             }
             $data = [
                 'judul' => $this->request->getPost('judul'),
@@ -95,7 +96,7 @@ class Subkategori extends ResourcePresenter
                 'id_kategori' => $this->request->getPost('id_kategori')
 
             ];
-            $this->subkategori->insert($data);
+            $this->subkategoriModel->insert($data);
             return redirect()->to(site_url('/subkategori'))->with('success', 'Kategori Berhasil Ditambahkan');
         }
     }
@@ -108,13 +109,14 @@ class Subkategori extends ResourcePresenter
     public function edit($slug = null)
     {
         session();
-        $subkategori = $this->subkategori->where('slug', $slug)->first();
-        $kategori = $this->kategori->findAll();
+        $subkategori = $this->subkategoriModel->getbySlug($slug);
+        $kategori = $this->kategoriModel->findAll();
+        // dd($subkategori);
         if (is_object($subkategori)) {
             $data['subkategori'] = $subkategori;
             $data['kategori'] = $kategori;
             $data['validation'] = \Config\Services::validation();
-            echo view('dashboard/v_edit', $data);
+            echo view('dashboard/subkategori/edit', $data);
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -130,24 +132,21 @@ class Subkategori extends ResourcePresenter
         $validation = $this->validate([
             'judul' => [
                 'required',
-                'is_unique[kategori.judul,id_kategori,{id}]',
+                "is_unique[subkategori.judul,id_subkategori,{$id}]",
                 'errors' => [
-                    'required' => 'Masukan Judul Kategori!',
-                    'is_unique' => 'Judul Kategori Sudah Ada!'
+                    'required' => 'Masukan Nama Subkategori!',
+                    'is_unique' => 'Nama Subkategori Sudah Ada!'
                 ]
             ],
             'gambar' => [
-                // 'uploaded[gambar]',
-                // 'mime_in[file,image/png,image/jpg,image/jpeg]',
-                // 'max_size[file,4096]',
+                'mime_in[gambar,image/png,image/jpg,image/jpeg]',
                 'errors' => [
-                    // 'uploaded' => 'Masukan Gambar!'
-                    // 'mime_in' => 'Extension tidak sesuai!'
+                    'mime_in' => 'Extension tidak sesuai!'
                 ]
             ],
         ]);
         if (!$validation) {
-            return redirect()->to('kategori/edit/' . $this->request->getPost('slug'))->withInput()->with('error', $this->validator->getErrors());;
+            return redirect()->to(previous_url())->withInput()->with('error', $this->validator->getErrors());
         }
         $imageFile = $this->request->getFile('gambar');
         if ($imageFile->getError() == 4) {
@@ -156,7 +155,7 @@ class Subkategori extends ResourcePresenter
             $nameFile = $imageFile->getName();
             $imageFile->move('uploads/subkategori', $nameFile);
             //jika gambar default
-            if ($this->request->getPost('gambar_lama') != 'default.png') {
+            if ($this->request->getPost('gambar_lama') != 'no-image.png') {
                 unlink('uploads/subkategori/' . $this->request->getPost('gambar_lama'));
             }
         }
@@ -166,8 +165,8 @@ class Subkategori extends ResourcePresenter
             'slug' => $this->request->getPost('slug'),
             'id_kategori' => $this->request->getPost('id_kategori')
         ];
-        // $validation =  \Config\Services::validation();
-        $this->subkategori->update($id, $data);
+
+        $this->subkategoriModel->update($id, $data);
         return redirect()->to(site_url('subkategori'))->with('success', 'Kategori Berhasil Dirubah');
     }
 
@@ -178,7 +177,10 @@ class Subkategori extends ResourcePresenter
      */
     public function delete($id = null)
     {
-        $this->subkategori->where('id_subkategori', $id)->delete();
+        if ($this->request->getPost('gambar') != "no-image.png") {
+            unlink('uploads/subkategori/' . $this->request->getPost('gambar'));
+        }
+        $this->subkategoriModel->where('id_subkategori', $id)->delete();
         return redirect()->to(site_url('subkategori'))->with('success', 'Subkategori Berhasil Dihapus');
     }
 }

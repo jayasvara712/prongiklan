@@ -22,31 +22,31 @@ class SubkategoriModel extends Model
 
     function getAll()
     {
-
-        //latian
-        // $builder = $this->db->table("kategori as tb_kategori");
-        // $builder->select('tb_kategori.*,
-
-        // tb_kategori.judul as judul_kategori, 
-        // tb_kategori.gambar as gambar_kategori, 
-        // tb_kategori.slug as slug_kategori');
-        // $builder->join('subkategori as tb_subkategori', 'tb_subkategori.id_kategori=tb_kategori.id_kategori', 'left');
-        // $data = $builder->get()->getResult();
-        // dd($data);
-        //bener
         $builder = $this->db->table('kategori');
-        $builder->select('*,kategori.judul as judul_kategori, ',);
-        $builder->join('subkategori', 'subkategori.id_kategori = kategori.id_kategori', 'right');
+        $builder->select(
+            'kategori.id_kategori,
+             kategori.judul as judul_kategori,
+             subkategori.id_subkategori as id_subkategori,
+             subkategori.gambar as gambar_subkategori,
+             subkategori.slug as slug_subkategori,
+             subkategori.judul as judul_subkategori,
+             subkategori.id_kategori as id_kategori'
+        );
+        $builder->join('subkategori', 'subkategori.id_kategori = kategori.id_kategori');
         // dd($builder->get()->getResult());
         return $builder->get()->getResult();
     }
     function getbySlug($slug)
     {
         $builder = $this->db->table('subkategori');
-
-        $builder->join('kategori', 'kategori.id = subkategori.id_kategori', 'left');
-        $builder->where('slug', $slug);
-
-        return $builder->get()->getResult();
+        $builder->select(
+            'subkategori.id_subkategori as id_subkategori,
+             subkategori.gambar as gambar_subkategori,
+             subkategori.slug as slug_subkategori,
+             subkategori.judul as judul_subkategori,
+             subkategori.id_kategori as id_kategori'
+        );
+        // $builder->join('kategori', 'kategori.id_k = subkategori.id_s', 'left');
+        return $builder->where('slug', $slug)->get()->getRowObject();
     }
 }

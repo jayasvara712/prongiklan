@@ -15,6 +15,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/components.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/custom.css">
 </head>
 
 <body>
@@ -75,6 +76,7 @@
 
     <!-- Template JS File -->
     <script src="<?= base_url() ?>/stisla/assets/js/scripts.js"></script>
+    <script src="<?= base_url() ?>/assets/js/filter.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom.js"></script>
 
     <!-- Page Specific JS File -->
