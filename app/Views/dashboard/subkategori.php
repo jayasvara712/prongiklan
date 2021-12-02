@@ -23,30 +23,25 @@
                             <th>No</th>
                             <th>Subkategori</th>
                             <th>Kategori</th>
-                            <th>Slug</th>
                             <th>Gambar</th>
                             <th>Action</th>
                         </tr>
-
                         <tr>
                             <?php foreach ($subkategori as $key => $value) : ?>
                         <tr>
-
                             <td><?= $key + 1 ?></td>
-                            <td><?= $value->judul ?></td>
+                            <td><?= $value->judul_subkategori ?></td>
                             <td><?= $value->judul_kategori
                                 ?></td>
-                            <td><?= $value->slug ?></td>
-                            <td> <img src="<?= base_url('/uploads/subkategori') . "/" ?><?= $value->gambar ?>" alt="" srcset="" width="100px" height="100px"></td>
-
+                            <td> <img src="<?= base_url('/uploads/subkategori') . "/" ?><?= $value->gambar_subkategori ?>" alt="" srcset="" width="100px" height="100px"></td>
                             <td>
-                                <a class="btn btn-warning" href="<?= site_url('subkategori/edit/' .  $value->slug) ?>">Edit</a>
+                                <a class="btn btn-warning" href="<?= site_url('subkategori/edit/' .  $value->slug_subkategori) ?>">Edit</a>
                                 <form action="<?= site_url('subkategori/delete/' . $value->id_subkategori) ?>" class="d-inline" method="post">
                                     <?= csrf_field() ?>
+                                    <input type="hidden" name="gambar" value="<?= $value->gambar_subkategori ?>">
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
-
 
                         </tr>
                     <?php endforeach ?>

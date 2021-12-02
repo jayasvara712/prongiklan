@@ -9,8 +9,6 @@
 
     <div class="section-body">
         <div class="card-body">
-
-
             <form action="<?= site_url('kategori') ?>" method="post" autocomplete="off" enctype="multipart/form-data">
                 <?= csrf_field() ?>
 
@@ -28,7 +26,7 @@
                 <div class="form-group row">
                     <label>Gambar</label>
                     <div class="col-4">
-                        <img src="/uploads/kategori/default.png" alt="" srcset="" class="image-thumbnail img-preview" width="150px">
+                        <img src="/uploads/kategori/no-image.png" alt="" srcset="" class="image-thumbnail img-preview" width="150px">
                     </div>
                     <div class="col-8">
                         <input type="file" id="gambar" name="gambar" class="form-control <?= ($validation->hasError('gambar')) ? 'is-invalid' : '' ?>" onchange="imagePreview()">
@@ -36,6 +34,7 @@
                             <?= $validation->getError('gambar') ?>
                         </div>
                         <label for="gambar" class="custom-file-label gambar-label">Tambah Gambar</label>
+                        <p>Gambar Format PNG/JPG/JPEG</p>
                     </div>
 
                 </div>

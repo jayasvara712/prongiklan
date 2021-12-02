@@ -22,22 +22,20 @@
                         <tr>
                             <th>No</th>
                             <th>Kategori</th>
-                            <th>Slug</th>
                             <th>Gambar</th>
                             <th>Action</th>
                         </tr>
                         <?php foreach ($kategori as $key => $value) : ?>
                             <tr>
-
                                 <td><?= $key + 1 ?></td>
                                 <td><?= $value->judul ?></td>
-                                <td><?= $value->slug ?></td>
                                 <td> <img src="<?= base_url('/uploads/kategori') . "/" ?><?= $value->gambar ?>" alt="" srcset="" width="100px" height="100px"></td>
 
                                 <td>
                                     <a class="btn btn-warning" href="<?= site_url('kategori/edit/' .  $value->slug) ?>">Edit</a>
                                     <form action="<?= site_url('kategori/delete/' . $value->id_kategori) ?>" class="d-inline" method="post">
                                         <?= csrf_field() ?>
+                                        <input type="hidden" name="gambar" value="<?= $value->gambar ?>">
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>

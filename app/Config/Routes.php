@@ -43,7 +43,7 @@ $routes->setAutoRoute(true);
 $routes->presenter('kategori');
 $routes->presenter('subkategori');
 $routes->presenter('iklan');
-// $routes->get('/', 'Halaman');
+
 // $routes->get('/dashboard', 'Dashboard');
 // $routes->get('/dashboard/kategori', 'Kategori');
 // $routes->get('/kategori/add', 'Kategori::new');

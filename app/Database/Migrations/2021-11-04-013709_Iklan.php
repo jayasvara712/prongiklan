@@ -8,36 +8,40 @@ class Iklan extends Migration
 {
     public function up()
     {
+        $this->db->disableForeignKeyChecks();
         $this->forge->addField([
-            'id' => [
+            'id_iklan' => [
                 'type' => 'INT',
                 'constraint' => '5',
+                'unsigned' => true,
                 'auto_increment' => true
             ],
-            'judul_iklan' => [
+            'judul' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '100'
             ],
-            'deskripsi_iklan' => [
+            'deskripsi' => [
                 'type' => 'TEXT',
             ],
-            'slug_iklan' => [
+            'slug' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '100'
             ],
-            'harga_iklan' => [
+            'harga' => [
                 'type' => 'INT',
                 'constraint' => '15',
             ],
             'id_subkategori' => [
                 'type' => 'INT',
-                'constraint' => '5'
-            ],
+                'constraint' => '5',
+                'unsigned'   => true
+            ]
         ]);
-        $this->forge->addKey('id', true);
-        // $this->forge->addForeignKey('id_subkategori', 'subkategori', 'id');
 
+        $this->forge->addKey('id_iklan', true);
+        $this->forge->addForeignKey('id_subkategori', 'subkategori', 'id_subkategori', 'CASCADE', 'CASCADE');
         $this->forge->createTable('iklan');
+        $this->db->enableForeignKeyChecks();
     }
 
     public function down()

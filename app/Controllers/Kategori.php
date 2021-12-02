@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\KategoriModel;
 use App\Models\SubkategoriModel;
+use CodeIgniter\HTTP\Request;
 use CodeIgniter\RESTful\ResourceController;
 
 // use CodeIgniter\RESTful\BaseController;
@@ -33,9 +34,6 @@ class Kategori extends ResourcePresenter
     public function index()
     {
         $data['kategori'] = $this->kategoriModel->findAll();
-        // $data['kategori'] = $this->kategoriModel->findAll();
-        // return $this->respond($tes, 200);
-
         echo view('dashboard/kategori', $data);
     }
 
@@ -62,7 +60,7 @@ class Kategori extends ResourcePresenter
         $data = [
             'validation' => \Config\Services::validation()
         ];
-        echo view('dashboard/add', $data);
+        echo view('dashboard/kategori/add', $data);
     }
 
     /**
@@ -75,14 +73,6 @@ class Kategori extends ResourcePresenter
     public function create()
     {
         $validation = $this->validate([
-            'gambar' => [
-                // 'uploaded[gambar]',
-                // 'mime_in[file,image/png,image/jpg,image/jpeg]',
-                // 'max_size[file,4096]',
-                'errors' => [
-                    // 'uploaded' => 'Masukan Gambar!'
-                ]
-            ],
             'judul' => [
                 'required',
                 'is_unique[kategori.judul]',
@@ -90,7 +80,13 @@ class Kategori extends ResourcePresenter
                     'required' => 'Masukan Judul Kategori!',
                     'is_unique' => 'Judul Kategori Sudah Ada!'
                 ]
-            ]
+            ],
+            'gambar' => [
+                'mime_in[gambar,image/png,image/jpg,image/jpeg]',
+                'errors' => [
+                    'mime_in' => 'Extension tidak sesuai!'
+                ]
+            ],
         ]);
 
         if (!$validation) {
@@ -104,7 +100,7 @@ class Kategori extends ResourcePresenter
                 $imageFile->move('uploads/kategori');
                 $nameFile = $imageFile->getName();
             } else {
-                $nameFile = 'default.png';
+                $nameFile = 'no-image.png';
             }
             //upload ke writeable  folder
             // $imageFile->move(WRITEPATH . 'uploads/kategori');
@@ -116,7 +112,7 @@ class Kategori extends ResourcePresenter
 
             ];
             $this->kategoriModel->insert($data);
-            return redirect()->to(site_url('/kategori'))->with('success', 'Kategori Berhasil Ditambahkan');
+            return redirect()->to(site_url('kategori'))->with('success', 'Kategori Berhasil Ditambahkan');
         }
     }
 
@@ -130,8 +126,6 @@ class Kategori extends ResourcePresenter
     public function edit($slug = null)
     {
         $kategori = $this->kategoriModel->where('slug', $slug)->first();
-        // dd($kategori);
-
         session();
         $data = [
             'kategori' => $kategori,
@@ -139,7 +133,7 @@ class Kategori extends ResourcePresenter
         ];
         if (is_object($kategori)) {
             $data['kategori'] = $kategori;
-            echo view('dashboard/edit', $data);
+            echo view('dashboard/kategori/edit', $data);
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -158,25 +152,23 @@ class Kategori extends ResourcePresenter
         $validation = $this->validate([
             'judul' => [
                 'required',
-                'is_unique[kategori.judul,id_kategori,{id}]',
+                "is_unique[kategori.judul,id_kategori,{$id}]",
                 'errors' => [
                     'required' => 'Masukan Judul Kategori!',
                     'is_unique' => 'Judul Kategori Sudah Ada!'
                 ]
             ],
             'gambar' => [
-                // 'uploaded[gambar]',
-                // 'mime_in[file,image/png,image/jpg,image/jpeg]',
-                // 'max_size[file,4096]',
+                'mime_in[gambar,image/png,image/jpg,image/jpeg]',
                 'errors' => [
-                    // 'uploaded' => 'Masukan Gambar!'
-                    // 'mime_in' => 'Extension tidak sesuai!'
+                    'mime_in' => 'Extension tidak sesuai!'
                 ]
             ],
 
         ]);
+        // 'kategori/edit/' . $this->request->getPost('slug_k')
         if (!$validation) {
-            return redirect()->to('kategori/edit/' . $this->request->getPost('slug'))->withInput()->with('error', $this->validator->getErrors());;
+            return redirect()->to(previous_url())->withInput()->with('error', $this->validator->getErrors());
         }
 
         $imageFile = $this->request->getFile('gambar');
@@ -186,7 +178,7 @@ class Kategori extends ResourcePresenter
             $nameFile = $imageFile->getName();
             $imageFile->move('uploads/kategori', $nameFile);
             //jika gambar default
-            if ($this->request->getPost('gambar_lama') != 'default.png') {
+            if ($this->request->getPost('gambar_lama') != 'no-image.png') {
                 unlink('uploads/kategori/' . $this->request->getPost('gambar_lama'));
             }
         }
@@ -196,7 +188,7 @@ class Kategori extends ResourcePresenter
             'slug' => $this->request->getPost('slug')
         ];
         $this->kategoriModel->update($id, $data);
-        return redirect()->to(site_url('kategori'))->withInput()->with('success', 'Kategori Berhasil Dirubah');
+        return redirect()->to(site_url('kategori'))->with('success', 'Kategori Berhasil Dirubah');
     }
 
     /**
@@ -222,14 +214,9 @@ class Kategori extends ResourcePresenter
     {
 
         //img
-
-        $kategori = $this->kategoriModel->find($id);
-        if ($kategori->gambar != 'default.png') {
-            unlink('uploads/kategori/' . $kategori->gambar);
+        if ($this->request->getPost('gambar') != 'no-image.png') {
+            unlink('uploads/kategori/' . $this->request->getPost('gambar'));
         }
-
-
-        // unlink('uploads/kategori' . $kategori->gambar);
         $this->kategoriModel->where('id_kategori', $id)->delete();
         return redirect()->to(site_url('kategori'))->with('success', 'Kategori Berhasil Dihapus');
     }

@@ -8,27 +8,30 @@ class Kategori extends Migration
 {
     public function up()
     {
+        $this->db->disableForeignKeyChecks();
         $this->forge->addField([
-            'id' => [
+            'id_kategori' => [
                 'type' => 'INT',
                 'constraint' => '5',
-                'auto_increment' => true
+                'auto_increment' => true,
+                'unsigned' => true,
             ],
-            'judul_kategori' => [
+            'judul' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '100'
             ],
-            'gambar_kategori' => [
+            'gambar' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '100'
             ],
-            'slug_kategori' => [
+            'slug' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
-            ],
+                'constraint' => '100'
+            ]
         ]);
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('id_kategori', true);
         $this->forge->createTable('kategori');
+        $this->db->enableForeignKeyChecks();
     }
 
     public function down()
