@@ -35,9 +35,8 @@ class Subkategori extends Migration
                 'unsigned'   => true,
             ],
         ]);
-
         $this->forge->addKey('id_subkategori', true);
-        $this->forge->addForeignKey('id_kategori', 'kategori', 'id_kategori', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_kategori', 'kategori', 'id_kategori', 'SETNULL', 'CASCADE');
         $this->forge->createTable('subkategori');
         $this->db->enableForeignKeyChecks();
     }

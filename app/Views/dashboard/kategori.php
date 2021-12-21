@@ -3,7 +3,9 @@
 <section class="section">
     <div class="section-header">
         <h1>Kategori</h1>
-        <div><a href="<?= site_url("kategori/new") ?>" class="btn btn-primary">Tambah</a></div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item"><a href="<?= site_url("kategori/new") ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a></div>
+        </div>
 
     </div>
     <?php if (session()->getFlashdata('success')) : ?>
@@ -32,11 +34,11 @@
                                 <td> <img src="<?= base_url('/uploads/kategori') . "/" ?><?= $value->gambar ?>" alt="" srcset="" width="100px" height="100px"></td>
 
                                 <td>
-                                    <a class="btn btn-warning" href="<?= site_url('kategori/edit/' .  $value->slug) ?>">Edit</a>
+                                    <a class="btn btn-warning" href="<?= site_url('kategori/edit/' .  $value->slug) ?>"><i class="fas fa-pencil-alt"></i> Edit</a>
                                     <form action="<?= site_url('kategori/delete/' . $value->id_kategori) ?>" class="d-inline" method="post">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="gambar" value="<?= $value->gambar ?>">
-                                        <button class="btn btn-danger">Delete</button>
+                                        <button class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
                                     </form>
                                 </td>
                             </tr>

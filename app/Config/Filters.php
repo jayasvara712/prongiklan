@@ -6,6 +6,8 @@ use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
+use App\Filters\LoginFilter;
+use \App\Filters\Cors;
 
 class Filters extends BaseConfig
 {
@@ -19,6 +21,9 @@ class Filters extends BaseConfig
         'csrf'     => CSRF::class,
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
+        'isLoggedIn' => LoginFilter::class,
+        'cors'     => Cors::class, 
+        
     ];
 
     /**
@@ -30,7 +35,8 @@ class Filters extends BaseConfig
     public $globals = [
         'before' => [
             // 'honeypot',
-            'csrf',
+            // 'csrf',
+            'cors'
         ],
         'after' => [
             'toolbar',
@@ -58,5 +64,19 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $filters = [];
+    public $filters = [
+        'isLoggedIn' => ['before' =>
+        [
+            'halaman/buatiklan',
+            'halaman/profile',
+            'dashboard',
+            'kategori',
+            'kategori/*',
+            'subkategori',
+            'subkategori/*',
+            'iklan',
+            'iklan/*',
+        ]
+        ]
+    ];
 }

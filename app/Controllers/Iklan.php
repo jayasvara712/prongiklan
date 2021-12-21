@@ -12,7 +12,7 @@ use function PHPSTORM_META\type;
 class Iklan extends ResourceController
 {
 
-
+    private $menu = "<script language=\"javascript\">menu('m-iklan');</script>";
     function __construct()
     {
         $this->iklanModel = new IklanModel();
@@ -35,7 +35,7 @@ class Iklan extends ResourceController
         $data['iklan'] = $iklan;
 
         $data['keyword'] = $keyword;
-        echo view('dashboard/iklan', $data);
+        echo view('dashboard/iklan', $data) . $this->menu;
     }
     public function search()
     {
@@ -59,7 +59,7 @@ class Iklan extends ResourceController
     {
         $data['subkategori'] = $this->subkategoriModel->findAll();
         $data['validation'] = \Config\Services::validation();
-        echo view('dashboard/iklan/add', $data);
+        echo view('dashboard/iklan/add', $data) . $this->menu;
     }
 
     /**
@@ -92,7 +92,7 @@ class Iklan extends ResourceController
                 'uploaded[gambar]',
                 'mime_in[gambar,image/png,image/jpg,image/jpeg]',
                 'errors' => [
-                    'uploaded' => '*Masukan 3 Gambar!',
+                    'uploaded' => '*Masukan 4 Gambar!',
                     'mime_in' => '*Extension tidak sesuai,Masukan PNG,JPG,JPEG!'
                 ]
             ],
@@ -159,7 +159,7 @@ class Iklan extends ResourceController
             $data['subkategori'] = $subkategori;
             $data['iklan'] = $iklan;
             $data['validation'] = \Config\Services::validation();
-            echo view('dashboard/iklan/edit', $data);
+            echo view('dashboard/iklan/edit', $data) . $this->menu;
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -277,7 +277,6 @@ class Iklan extends ResourceController
                 unlink('uploads/iklan/' . $gambar);
             }
         }
-
         // dd($gambar_array);
 
         $this->iklanModel->where('id_iklan', $id)->delete();

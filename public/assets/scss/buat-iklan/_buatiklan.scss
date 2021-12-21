@@ -1,0 +1,49 @@
+.buat-iklan{
+    &__title{
+        font-size: $h1;
+        font-weight: 600;
+        padding-bottom: 20px;
+    }
+    &__section{
+        h1{
+            padding-top: 20px;
+            padding-left: 20px;
+            font-size: $p-second;
+            font-weight: 600;
+            color: $black;
+        }
+        border: 1px solid #dae1e1;
+        border-radius: 20px;
+        width: 70%;
+        margin: 0 auto;
+    }
+    .option-kategori{
+        padding-bottom: 20px;
+    }
+}
+.nav {
+    background-color: #fff;
+}
+.nav-kategori{
+    padding-top: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+    border: 1px solid #dae1e1;
+    list-style-type: none;
+
+    &__text{
+        color: $black;
+        font-size: $p-thirt;
+    }
+
+    button{
+        text-decoration: none;
+        color: black;
+        font-size: $p-thirt;
+    }
+
+    .btn:focus,.btn:active {
+        outline: none !important;
+        box-shadow: none;
+    }
+}

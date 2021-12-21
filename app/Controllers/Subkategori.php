@@ -9,6 +9,7 @@ use CodeIgniter\RESTful\ResourcePresenter;
 class Subkategori extends ResourcePresenter
 {
     // protected $Helper = ['custom'];
+    private $menu = "<script language=\"javascript\">menu('m-subkategori');</script>";
     function __construct()
     {
         $this->kategoriModel = new KategoriModel();
@@ -25,7 +26,7 @@ class Subkategori extends ResourcePresenter
 
         $data['subkategori'] = $this->subkategoriModel->getAll();
 
-        echo view('dashboard/subkategori', $data);
+        echo view('dashboard/subkategori', $data) . $this->menu;
     }
 
     /**
@@ -49,7 +50,7 @@ class Subkategori extends ResourcePresenter
         $data['kategori'] = $this->kategoriModel->findAll();
         $data['validation'] = \Config\Services::validation();
 
-        echo view('dashboard/subkategori/add', $data);
+        echo view('dashboard/subkategori/add', $data) . $this->menu;
     }
 
     /**
@@ -116,7 +117,7 @@ class Subkategori extends ResourcePresenter
             $data['subkategori'] = $subkategori;
             $data['kategori'] = $kategori;
             $data['validation'] = \Config\Services::validation();
-            echo view('dashboard/subkategori/edit', $data);
+            echo view('dashboard/subkategori/edit', $data) . $this->menu;
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }

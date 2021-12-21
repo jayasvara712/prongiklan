@@ -1,0 +1,100 @@
+@import "./base/base";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+body {
+  font-family: "Roboto", sans-serif;
+  background: #eee;
+  a {
+    text-decoration: none;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@import "./iklan/iklan";
+@import "./kategori/kategori";
+@import "./pencarian/pencarian";
+@import "./buat-iklan/buatiklan";
+@import "./buat-iklan/formiklan";
+@import "./profile-user/profile";
+
+.app {
+  background: #f2f4f5;
+}
+.main-content {
+  padding: 75px 0;
+}
+nav {
+  .navbar-brand {
+    background: #ffffff;
+  }
+  img {
+    width: 50px;
+  }
+}
+footer {
+  .ddd {
+    width: auto;
+    position: fixed;
+    bottom: 0;
+    z-index: 1053;
+  }
+  ul {
+    background: #ffffff;
+    border: 1px solid rgb(255, 255, 255);
+    a {
+      p {
+        font-size: 11px;
+        color: $p-color;
+      }
+    }
+  }
+}
+
+.breadcrumb li {
+  font-size: $p-main;
+  color: rgb(206, 206, 206);
+}
+
+.js .slider-single > div:nth-child(1n + 2) {
+  display: none;
+}
+
+.js .slider-single.slick-initialized > div:nth-child(1n + 2) {
+  display: block;
+}
+
+.ss {
+  margin: 0.5rem;
+  padding: 2%;
+  position: relative;
+  text-align: center;
+}
+.slider-nav .ss span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.slider-nav .slick-slide {
+  cursor: pointer;
+}
+
+.slick-slide.is-active h3 {
+  color: #c00;
+  background-color: #fff;
+}
+
+.slick-prev {
+  left: 50px !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 50px !important;
+}
+
+.slick-arrow:before {
+  color: #000 !important;
+}

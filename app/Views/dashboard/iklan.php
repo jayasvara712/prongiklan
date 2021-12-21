@@ -3,7 +3,9 @@
 <section class="section">
     <div class="section-header">
         <h1>Iklan</h1>
-        <div><a href="<?= site_url("iklan/new") ?>" class="btn btn-primary">Tambah</a></div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item"><a href="<?= site_url("iklan/new") ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a></div>
+        </div>
 
     </div>
     <?php if (session()->getFlashdata('success')) : ?>
@@ -14,6 +16,7 @@
             </div>
         </div>
     <?php endif ?>
+
     <div class="section-body">
         <div class="card">
             <div class="table-responsive">
@@ -51,10 +54,10 @@
 
                                 <td><?= $value->harga_iklan ?></td>
                                 <td>
-                                    <a class="btn btn-warning" href="<?= site_url('iklan/edit/' .  $value->slug_iklan) ?>">Edit</a>
+                                    <a class="btn btn-warning" href="<?= site_url('iklan/edit/' .  $value->slug_iklan) ?>"><i class="fas fa-pencil-alt"></i> Edit</a>
                                     <form action="<?= site_url('iklan/delete/' . $value->id_iklan) ?>" class="d-inline" method="post">
                                         <?= csrf_field() ?>
-                                        <button class="btn btn-danger">Delete</button>
+                                        <button class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
                                     </form>
                                 </td>
                             </tr>

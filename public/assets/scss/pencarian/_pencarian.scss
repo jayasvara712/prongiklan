@@ -1,0 +1,46 @@
+body{
+    background-color: #f2f4f5;
+}
+
+.pencarian{
+    &__title{
+        h1{
+            font-size: $h1;
+            font-weight: 600;
+            color: $black;
+        }
+        margin-top: 20px;
+    }
+    button{
+        border: 1px solid;
+        border-radius: 20px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+    .btn:focus,.btn:active {
+        outline: none !important;
+        box-shadow: none;
+    }
+    .list-iklan {
+        &__judul,
+        &__deskripsi {
+          font-size: $p-thirt;
+          white-space: nowrap;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: $black;
+        }
+        &__harga {
+          font-size: $p-thirt;
+          font-weight: 600;
+          margin: 5px 0;
+          color: $black;
+        }
+        &__thumbnail {
+          width: 100%;
+      
+          margin: auto;
+        }
+    }
+}

@@ -3,7 +3,9 @@
 <section class="section">
     <div class="section-header">
         <h1>Edit Iklan</h1>
-        <div><a href="<?= site_url("iklan") ?>" class="btn btn-primary">Back</a></div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item"><a href="<?= site_url("iklan") ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a></div>
+        </div>
 
     </div>
 
@@ -31,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label for="deskripsi">Deskripsi Iklan</label>
-                    <textarea class="form-control " id="deskripsi" rows="3" name="deskripsi" style="height: 200px;"><?= $iklan->deskripsi_iklan ?></textarea>
+                    <textarea class="summernote" id="deskripsi" rows="3" name="deskripsi" style="height: 200px;"><?= $iklan->deskripsi_iklan ?></textarea>
                 </div>
 
                 <div class="form-group">

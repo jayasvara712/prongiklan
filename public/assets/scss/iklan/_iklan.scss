@@ -1,0 +1,72 @@
+.title{
+  font-size: $h1;
+  color: $black;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+
+.list-iklan {
+  &__judul,
+  &__deskripsi {
+    font-size: $p-thirt;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $black;
+  }
+  &__harga {
+    font-size: $p-thirt;
+    font-weight: 600;
+    margin: 5px 0;
+    color: $black;
+  }
+
+  &__thumbnail {
+    width: 100%;
+
+    margin: auto;
+  }
+}
+
+.iklan-detail {
+  h4 {
+    font-weight: 600;
+    font-size: $p-thirt;
+    padding-left: 20px;
+    color: $black;
+  }
+  &__profile {
+    p {
+      margin: 0;
+    }
+    .nama-penjual {
+      font-weight: 600;
+      font-size: $p-thirt;
+      color: $black;
+    }
+  }
+  .title{
+    font-size: $p-thirt;
+    color: $black;
+  }
+  .card-iklan-detail{
+    margin-top: 20px;
+    p {
+      font-size: $p-thirt;
+      color: $black;
+    }
+  }
+  .card-harga-iklan{
+    margin-bottom: 20px;
+    h1{
+      font-size: $h1;
+      font-weight: 600;
+      color: $black;
+    }
+    p{
+      font-size: $p-thirt;
+      color: $p-color;
+    }
+  }
+}

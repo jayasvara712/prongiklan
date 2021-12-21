@@ -3,7 +3,9 @@
 <section class="section">
     <div class="section-header">
         <h1>Buat Subkategori</h1>
-        <div><a href="<?= site_url("subkategori") ?>" class="btn btn-primary">Back</a></div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item"><a href="<?= site_url("subkategori") ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a></div>
+        </div>
 
     </div>
 

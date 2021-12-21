@@ -36,6 +36,18 @@ class User extends Migration
             'alamat' => [
                 'type' => 'TEXT',
             ],
+            'hash' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'status' => [
+                'type' => 'INT',
+                'constraint' => '1',
+            ],
+            'role' => [
+                'type' => 'VARCHAR',
+                'constraint' => '5',
+            ],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('user');

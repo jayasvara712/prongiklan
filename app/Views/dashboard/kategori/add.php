@@ -3,7 +3,9 @@
 <section class="section">
     <div class="section-header">
         <h1>Buat Kategori</h1>
-        <div><a href="<?= site_url("kategori") ?>" class="btn btn-primary">Back</a></div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item"><a href="<?= site_url("kategori") ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a></div>
+        </div>
 
     </div>
 
@@ -23,7 +25,7 @@
                     <label>Slug Kategori</label>
                     <input type="text" name="slug" class="form-control" id="slug" readonly value=<?= old('slug') ?>>
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label>Gambar</label>
                     <div class="col-4">
                         <img src="/uploads/kategori/no-image.png" alt="" srcset="" class="image-thumbnail img-preview" width="150px">

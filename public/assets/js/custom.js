@@ -1,3 +1,6 @@
+function menu(e){
+    $('#'+e).addClass('active');   
+}
 
 //slugify
 function slugify(){
@@ -41,22 +44,9 @@ function imagePreview(){
         imgPrev.src = e.target.result
     }
 }
-//button add imaage
-// function addMoreImage() {
-//     let imageIklan = document.getElementsByClassName('image-iklan')[0]
-//     let div = document.createElement('div')
-//     div.classList.add('col-1')
-//     div.classList.add('m-2')
-//     let defaultImage = '/uploads/iklan/prongiklan-addimage.png';
-//     let newButton = ` 
-//     <label for="image" class="dashboard__label__gambar"><img src="/uploads/iklan/prongiklan-addimage.png" alt="" srcset="" width="100px"></label>
-//     <input type="file" name="gambar[]" id="image" class="dashboard__input__gambar">
-//     `
-//     div.innerHTML = newButton;
-//     imageIklan.append(div);
-// }
 
 document.addEventListener('DOMContentLoaded', function() {
+
 let inputDashboard = document.getElementsByClassName('dashboard__input__gambar')
 //folder
 let pathImage = '/uploads/iklan/'
@@ -119,5 +109,60 @@ for (let i = 0; i < inputDashboard.length; i++) {
          fileImage.readAsDataURL(getInput.files[0])
     })
 }
+$('.slider-single').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+
+    infinite: true,
+   useTransform: true,
+    speed: 400,
+    cssEase: 'cubic-bezier(0.77, 0, 0.18, 1)',
+});
+
+$('.slider-nav')
+    .on('init', function(event, slick) {
+        $('.slider-nav .slick-slide.slick-current').addClass('is-active');
+    })
+    .slick({
+        slidesToShow: 10,
+        dots: false,
+        focusOnSelect: false,
+        infinite: false,
+        responsive: [{
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 5,
+                slidesToScroll: 5,
+            }
+        }, {
+            breakpoint: 640,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4,
+           }
+        }, {
+            breakpoint: 420,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+       }
+        }]
+    });
+
+$('.slider-single').on('afterChange', function(event, slick, currentSlide) {
+    $('.slider-nav').slick('slickGoTo', currentSlide);
+    var currrentNavSlideElem = '.slider-nav .slick-slide[data-slick-index="' + currentSlide + '"]';
+    $('.slider-nav .slick-slide.is-active').removeClass('is-active');
+    $(currrentNavSlideElem).addClass('is-active');
+});
+
+$('.slider-nav').on('click', '.slick-slide', function(event) {
+    event.preventDefault();
+    var goToSingleSlide = $(this).data('slick-index');
+
+    $('.slider-single').slick('slickGoTo', goToSingleSlide);
+});
+
+
 }, false);
 

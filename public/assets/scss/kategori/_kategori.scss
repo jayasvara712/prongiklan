@@ -1,0 +1,54 @@
+.kategori {
+  img{
+    background: #fff;
+  }
+  margin-bottom: $margin-bottom;
+  &__list {
+    margin-bottom: 10px;
+    &__gambar {
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      border-radius: 5px;
+      padding: 5px;
+      width: 50px;
+    }
+    &__judul {
+      font-size: $p-thirt;
+      color: $black;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+  }
+  h1 {
+    font-size: $h2;
+  }
+}
+
+.all-kategori{
+  &__title{
+    margin-top: 100px;
+    h1{
+      font-size: $h1;
+      font-weight: 600;
+      color: $black;
+    }
+  }
+  .card{
+    margin-top: 20px;
+  }
+  .card-title{
+    font-size: $h1;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-top: 10px;
+    a{
+      color: $black;
+    }
+  }
+  li{
+    font-size: $p-thirt;
+    a{
+      color: $black;
+    }
+  }
+}

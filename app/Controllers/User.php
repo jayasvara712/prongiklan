@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class User extends ResourceController
@@ -13,9 +14,9 @@ class User extends ResourceController
      */
     public function index()
     {
-    }
-    public function login()
-    {
+        $model = new UserModel();
+        $data = $model->findAll();
+        return $this->respond($data, 200);
     }
 
     /**
@@ -25,7 +26,13 @@ class User extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        $model = new UserModel();
+        $data = $model->getWhere(['id' => $id])->getResult();
+        if($data){
+            return $this->respond($data);
+        }else{
+            return $this->failNotFound('No Data Found with id '.$id);
+        }
     }
 
     /**
@@ -35,7 +42,7 @@ class User extends ResourceController
      */
     public function new()
     {
-        //
+        
     }
 
     /**
@@ -45,7 +52,27 @@ class User extends ResourceController
      */
     public function create()
     {
-        //
+        $model = new UserModel();
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'username' => $this->request->getPost('username'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+            'hp' => $this->request->getPost('hp'),
+            'email' => $this->request->getPost('email'),
+            'alamat' => $this->request->getPost('alamat')
+        ];
+        $data = json_decode(file_get_contents("php://input"));
+        //$data = $this->request->getPost();
+        $model->insert($data);
+        $response = [
+            'status'   => 201,
+            'error'    => null,
+            'messages' => [
+                'success' => 'Data Saved'
+            ]
+        ];
+         
+        return $this->respondCreated($response, 201);
     }
 
     /**
@@ -65,7 +92,38 @@ class User extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        $model = new UserModel();
+        $json = $this->request->getJSON();
+        if($json){
+            $data = [
+                'nama' => $json->nama,
+                'username' => $json->username,
+                'password' => $json->password,
+                'hp' => $json->hp,
+                'email' => $json->email,
+                'alamat' => $json->alamat
+            ];
+        }else{
+            $input = $this->request->getRawInput();
+            $data = [
+                'nama' => $input['nama'],
+                'username' => $input['username'],
+                'password' => password_hash($input['password'], PASSWORD_BCRYPT),
+                'hp' => $input['hp'],
+                'email' => $input['email'],
+                'alamat' => $input['alamat']
+            ];
+        }
+        // Insert to Database
+        $model->update($id, $data);
+        $response = [
+            'status'   => 200,
+            'error'    => null,
+            'messages' => [
+                'success' => 'Data Updated'
+            ]
+        ];
+        return $this->respond($response);
     }
 
     /**
@@ -75,6 +133,40 @@ class User extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $model = new UserModel();
+        $data = $model->find($id);
+        if($data){
+            $model->delete($id);
+            $response = [
+                'status'   => 200,
+                'error'    => null,
+                'messages' => [
+                    'success' => 'Data Deleted'
+                ]
+            ];
+             
+            return $this->respondDeleted($response);
+        }else{
+            return $this->failNotFound('No Data Found with id '.$id);
+        }
     }
+
+    // public function register(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'email' => 'required|unique:users|email',
+    //         'password' => 'required|min:6'
+    //     ]);
+
+    //     $email = $request->input('email');
+    //     $password = Hash::make($request->input('password'));
+
+    //     $user = User::create([
+    //         'email' => $email,
+    //         'password' => $password,
+    //     ]);
+
+    //     return response()->json(['message' => 'Data added successfully'], 201);
+    // }
+
 }

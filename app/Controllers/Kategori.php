@@ -17,7 +17,7 @@ use CodeIgniter\RESTful\ResourcePresenter;
 class Kategori extends ResourcePresenter
 {
 
-
+    private $menu = "<script language=\"javascript\">menu('m-kategori');</script>";
     function __construct()
     {
         $this->kategoriModel = new KategoriModel();
@@ -34,7 +34,7 @@ class Kategori extends ResourcePresenter
     public function index()
     {
         $data['kategori'] = $this->kategoriModel->findAll();
-        echo view('dashboard/kategori', $data);
+        echo view('dashboard/kategori', $data) . $this->menu;
     }
 
     /**
@@ -60,7 +60,7 @@ class Kategori extends ResourcePresenter
         $data = [
             'validation' => \Config\Services::validation()
         ];
-        echo view('dashboard/kategori/add', $data);
+        echo view('dashboard/kategori/add', $data) . $this->menu;
     }
 
     /**
@@ -133,7 +133,7 @@ class Kategori extends ResourcePresenter
         ];
         if (is_object($kategori)) {
             $data['kategori'] = $kategori;
-            echo view('dashboard/kategori/edit', $data);
+            echo view('dashboard/kategori/edit', $data) . $this->menu;
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }

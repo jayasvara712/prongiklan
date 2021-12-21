@@ -13,6 +13,7 @@ class Dashboard extends BaseController
 
     public function index()
     {
-        echo view('layout/dashboard');
+        private $menu="<script language=\"javascript\">menu('m-dashboard');</script>";
+        echo view('layout/dashboard').$this->menu;
     }
 }

@@ -1,11 +1,15 @@
 <?= $this->extend("layout/dashboard") ?>
 <?= $this->section("content") ?>
+
 <section class="section">
     <div class="section-header">
         <h1>Subkategori</h1>
-        <div><a href="<?= site_url("subkategori/new") ?>" class="btn btn-primary">Tambah</a></div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item"><a href="<?= site_url("subkategori/new") ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a></div>
+        </div>
 
     </div>
+
     <?php if (session()->getFlashdata('success')) : ?>
         <div class="alert alert-success alert-dismissible show fade">
             <div class="alert-body">
@@ -14,6 +18,15 @@
             </div>
         </div>
     <?php endif ?>
+    <?php if (session()->getFlashdata('error')) : ?>
+        <div class="alert alert-error alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">x</button>
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        </div>
+    <?php endif ?>
+
     <div class="section-body">
         <div class="card">
             <div class="table-responsive">
@@ -35,11 +48,11 @@
                                 ?></td>
                             <td> <img src="<?= base_url('/uploads/subkategori') . "/" ?><?= $value->gambar_subkategori ?>" alt="" srcset="" width="100px" height="100px"></td>
                             <td>
-                                <a class="btn btn-warning" href="<?= site_url('subkategori/edit/' .  $value->slug_subkategori) ?>">Edit</a>
+                                <a class="btn btn-warning" href="<?= site_url('subkategori/edit/' .  $value->slug_subkategori) ?>"><i class="fas fa-pencil-alt"></i> Edit</a>
                                 <form action="<?= site_url('subkategori/delete/' . $value->id_subkategori) ?>" class="d-inline" method="post">
                                     <?= csrf_field() ?>
                                     <input type="hidden" name="gambar" value="<?= $value->gambar_subkategori ?>">
-                                    <button class="btn btn-danger">Delete</button>
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
                                 </form>
                             </td>
 

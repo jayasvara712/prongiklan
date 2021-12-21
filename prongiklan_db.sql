@@ -41,10 +41,10 @@ CREATE TABLE `gambar` (
 
 CREATE TABLE `iklan` (
   `id` int(5) NOT NULL,
-  `judul` varchar(100) NOT NULL,
-  `deskripsi` text NOT NULL,
-  `slug` varchar(100) NOT NULL,
-  `harga` int(15) NOT NULL,
+  `judul_iklan` varchar(100) NOT NULL,
+  `deskripsi_iklan` text NOT NULL,
+  `slug_iklan` varchar(100) NOT NULL,
+  `harga_iklan` int(15) NOT NULL,
   `id_subkategori` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -55,7 +55,7 @@ CREATE TABLE `iklan` (
 --
 
 CREATE TABLE `kategori` (
-  `id` int(5) NOT NULL,
+  `id_kategori` int(5) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `gambar` varchar(100) NOT NULL,
   `slug` varchar(100) NOT NULL
@@ -95,7 +95,7 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 --
 
 CREATE TABLE `subkategori` (
-  `id` int(5) NOT NULL,
+  `id_subkategori` int(5) NOT NULL,
   `judul` varchar(100) NOT NULL,
   `gambar` varchar(100) NOT NULL,
   `slug` varchar(100) NOT NULL,
@@ -115,7 +115,10 @@ CREATE TABLE `user` (
   `password` text NOT NULL,
   `hp` varchar(15) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `alamat` text NOT NULL
+  `alamat` text NOT NULL,
+  `hash` varchar(255) NOT NULL,
+  `status` int(1),
+  `role` varchar(5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

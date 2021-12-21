@@ -31,13 +31,17 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-// $routes->get('/', 'Halaman::index');
-// $routes->get('/', 'Halaman::kategori');
-// $routes->get('/', 'Halaman::subkategori');
-// $routes->get('/', 'Halaman::iklan');
-// $routes->get('/', 'Halaman::iklandetail');
-// $routes->get('/', 'Halaman::login');
-// $routes->get('/', 'Halaman::register');
+$routes->get('/', 'Halaman');
+$routes->get('/iklandetail', 'Halaman::iklandetail');
+$routes->get('/', 'Halaman::kategories');
+$routes->get('/', 'Halaman::search');
+$routes->get('/', 'Halaman::buatiklans');
+$routes->get('/', 'Halaman::fromiklan');
+$routes->get('/', 'Halaman::profile');
+$routes->post('halaman/buatiklan', 'Halaman::buatiklan');
+$routes->post('halaman/create', 'Halaman::create');
+$routes->get('/iklan-detail/(.*)', 'Halaman::tampil_iklan/$1');
+
 
 
 $routes->presenter('kategori');
@@ -51,10 +55,25 @@ $routes->presenter('iklan');
 // $routes->get('/admin', 'User::login');
 // $routes->get('/admin/dashboard', 'User::dashboard');
 // $routes->get('/admin/user', 'User::index');
+
+$routes->get('/login', 'Auth::login');
+$routes->post('loginProcess', 'Auth::loginProcess');
+$routes->get('/register', 'Auth::register');
+$routes->post('registerProcess', 'Auth::registerProcess');
+$routes->get('/reset', 'Auth::reset');
+$routes->post('/resetProses', 'Auth::resetProses');
+$routes->post('/resetpwProses', 'Auth::resetpwProses');
+$routes->get('/verify', 'Auth::verify');
+$routes->post('verifyProses', 'Auth::verifyProses');
+$routes->get('/logout', 'Auth::logout');
+// $routes->get('/admin/user', 'User::index');
+// $routes->get('/admin/dashboard', 'User::dashboard');
+
 // $routes->get('/admin/kategori', 'Kategori::index');
 // $routes->get('/admin/subkategori', 'Subkategori::index');
 // $routes->get('/admin/iklan', 'Iklan::index');
 
+$routes->resource('user');
 
 /*
  * --------------------------------------------------------------------
